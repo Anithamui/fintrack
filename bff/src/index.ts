@@ -1,6 +1,20 @@
+import dotenv from "dotenv";
+dotenv.config(); // Load .env file
+
 import express from "express";
 import pool from "./config/database";
+import authRoutes from "./routes/authRoutes";
+import otpRoutes from "./routes/otpRoutes";
+// import otp
+
+const dbUrl = process.env.DATABASE_URL;
+const emailUser = process.env.EMAIL_USER;
+
 const app = express();
+app.use(express.json());
+app.use("/auth", authRoutes);
+app.use("/otp", otpRoutes);
+
 const PORT = 3000;
 
 app.get("/api/health", (req, res) => {
